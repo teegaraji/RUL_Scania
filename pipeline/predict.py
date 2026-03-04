@@ -5,6 +5,10 @@ Semua parameter HARUS identik dengan training notebook.
 
 import os
 
+# Must be set BEFORE importing pycox — Streamlit Cloud mounts the venv
+# read-only, so pycox cannot create its data dir inside site-packages.
+os.environ.setdefault("PYCOX_DATA_DIR", "/tmp/pycox_data")
+
 import joblib
 import numpy as np
 import pandas as pd
