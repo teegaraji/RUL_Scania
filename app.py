@@ -149,47 +149,12 @@ if ops_file and spec_file:
     st.subheader("Ringkasan")
 
     if eval_mode:
-        m1, m2, m3, m4, m5, m6 = st.columns(6)
+        m1, m2, m3, m4, m5 = st.columns(5)
         m1.metric("🚛 Total Kendaraan", f"{n_total:,}")
         m2.metric("⛔ Kritis (Kelas 3–4)", n_critical)
         m3.metric("🟠 Perlu Tindakan (Kelas 2)", n_warning)
         m4.metric("✅ Normal / Aman", n_ok)
-        # saving_pct > 0  → model lebih baik dari baseline (cost lebih rendah)
-        # saving_pct < 0  → model lebih buruk dari baseline (cost lebih tinggi)
-        diff_abs = total_cost - baseline_cost  # negatif = lebih baik
-        if saving_pct > 0:
-            delta_label = f"−{saving_pct:.2f}% vs baseline (hemat {abs(diff_abs):,})"
-        elif saving_pct < 0:
-            delta_label = (
-                f"+{abs(saving_pct):.2f}% vs baseline (lebih mahal {abs(diff_abs):,})"
-            )
-        else:
-            delta_label = "0.00% vs baseline (sama dengan baseline)"
-
-        m5.metric(
-            "💰 Total Cost Model",
-            f"{total_cost:,}",
-            delta=f"{diff_abs:+,} vs baseline",
-            delta_color="inverse",  # inverse: negatif=hijau(lebih baik), positif=merah(lebih buruk)
-        )
-        m6.metric(
-            "📊 Baseline Cost (semua pred=0)",
-            f"{baseline_cost:,}",
-            help="Cost jika semua kendaraan diprediksi Kelas 0 (tidak ada yang berbahaya)",
-        )
-        if saving_pct < 0:
-            st.warning(
-                f"⚠️ Model sedikit **lebih buruk** dari baseline: "
-                f"cost {total_cost:,} vs baseline {baseline_cost:,} "
-                f"(selisih +{abs(diff_abs):,}). "
-                f"Ini wajar jika Ensemble memprediksi beberapa kendaraan sebagai Kelas 1 "
-                f"padahal aktualnya Kelas 0 (over-predict kecil)."
-            )
-        elif saving_pct > 0:
-            st.success(
-                f"✅ Model **lebih baik** dari baseline: "
-                f"hemat {abs(diff_abs):,} cost ({saving_pct:.2f}% improvement)."
-            )
+        m5.metric("💰 Total Cost Model", f"{total_cost:,}")
     else:
         m1, m2, m3, m4 = st.columns(4)
         m1.metric("🚛 Total Kendaraan", f"{n_total:,}")
