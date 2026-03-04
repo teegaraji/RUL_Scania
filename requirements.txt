@@ -3,7 +3,7 @@
 streamlit>=1.30.0
 pandas>=2.0.0
 numpy>=1.24.0
-lifelines==0.27.8
+lifelines>=0.28.0
 scipy>=1.14.0
 torch==2.6.0+cpu
 torchtuples==0.2.2
