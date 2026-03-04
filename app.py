@@ -1,6 +1,9 @@
 import os
 import sys
 
+# Must be set before any pycox import — Streamlit Cloud venv is read-only
+os.environ.setdefault("PYCOX_DATA_DIR", "/tmp/pycox_data")
+
 import numpy as np
 import pandas as pd
 import streamlit as st
